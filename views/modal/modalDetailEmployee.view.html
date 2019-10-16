@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <h3>{{data.firstName}} {{data.lastName}}</h3>
+</div>
+<div class="modal-body">
+    <!--<div class="col-md-8 ">-->
+        <table class="table table-bordered" >
+            <tr>
+                <td>Username</td>
+                <td>{{data.username}}</td>
+            </tr>
+            <tr>
+                <td>Firstname</td>
+                <td>{{data.firstName}}</td>
+            </tr>
+            <tr>
+                <td>Lastname</td>
+                <td>{{data.lastName}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{data.email}}</td>
+            </tr>
+            <tr>
+                <td>Birth Date</td>
+                <td>{{data.birthDate | date:'dd-MMM-yyyy'}}</td>
+            </tr>
+            <tr>
+                <td>Basic Salary</td>
+                <td>{{data.basicSalary | currency:"Rp "}}</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>{{data.status}}</td>
+            </tr>
+            <tr>
+                <td>Group</td>
+                <td>{{data.group}}</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{data.description | date:'dd-MMM-yyyy hh:mm:ss'}}</td>
+            </tr>
+            
+
+        </table>
+    <!--</div>-->
+</div>
+
+<div class="modal-footer">
+     <button class="btn btn-info" ng-click="cancel()">Ok</button>
+
+</div>	

@@ -1,0 +1,83 @@
+<div class=dashboard-page>
+    <div class=container-fluid>
+        <div class=row>
+            <div class="col-sm-3 col-md-2 sidebar">
+                <div class=text-center>
+                    <h2 class=brand>Admin Panel</h2>
+                    <img src="assets/images/user.png" class=user-avatar><br>
+                    <a href="#!/login" class="btn btn-white btn-outline btn-rounded btn-sm">Logout</a>
+                </div>
+                <ul class="nav nav-sidebar">
+                    <li ng-class="{active: $state.includes('employeeList')}"><a ui-sref=employeeList>Employee List <span class=sr-only>(current)</span></a></li>
+                </ul>
+            </div>
+            <div class="col-sm-12 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view>
+                <div>
+                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+                    <!--<button type="button" class='btn btn-default' ng-click="addAlert()">Add Alert</button>-->
+                    <h2>Add Employee</h2>
+                    <div class="jumbotron">
+                        <div class="container">
+                            <div class="row">
+                                <form name="form" ng-submit="postEmployee()" role="form">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" name="username" id="username" class="form-control" ng-model="vm.username" placeholder="Username" required />
+                                        <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstName">Firstname</label>
+                                        <input type="text" name="firstName" id="firstName" class="form-control" ng-model="vm.firstName" placeholder="Firstname" required />
+                                        <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">Lastname is required</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Lastname</label>
+                                        <input type="text" name="lastName" id="lastName" class="form-control" ng-model="vm.lastName" placeholder="Lastname" required />
+                                        <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Lastname is required</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control" ng-model="vm.email" placeholder="Email in Email Format ( ...@xyz.com)" required />
+                                        <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthDate">Birth Date</label>
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </p>
+                                        <span ng-show="form.birthDate.$dirty && form.birthDate.$error.required" class="help-block">Birth Date is required</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basicSalary">Basic Salary</label>
+                                        <input type="number" name="basicSalary" id="basicSalary" class="form-control" ng-model="vm.basicSalary" ng-pattern="integerval" placeholder="Basic Salary in Number" required />
+                                        <span ng-show="form.basicSalary.$dirty && form.basicSalary.$error.required" class="help-block">Basic Salary is required</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <input type="text" name="status" id="status" class="form-control" ng-model="vm.status" required />
+                                        <span ng-show="form.status.$dirty && form.status.$error.required" class="help-block">Status is required</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="group">Group</label>
+                                        <!--<input type="text" name="group" id="group" class="form-control" ng-model="vm.group" required />-->
+                                        <div class="form-group">
+                                            <select class="show-tick form-control dropdown_custom_list" ng-model="selectedGroup" ng-options="optionGroups.name for optionGroups in optionGroup">
+                                                <option value="">-- Select One--</option>
+                                            </select>
+                                        </div>
+                                        <span ng-show="form.group.$dirty && form.group.$error.required" class="help-block">Group is required</span>
+                                    </div>
+                                    <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Save</button>
+                                    <a ng-click="backMenuEmployee()" class="btn btn-warning">Back</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

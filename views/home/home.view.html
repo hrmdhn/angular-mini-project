@@ -1,0 +1,96 @@
+<div class=dashboard-page>
+    <div class=container-fluid>
+        <div class=row>
+            <div class="col-sm-3 col-md-2 sidebar">
+                <div class=text-center>
+                    <h2 class=brand>Admin Panel</h2>
+                    <img src="assets/images/user.png" class=user-avatar><br>
+                    <a href="#!/login" class="btn btn-white btn-outline btn-rounded btn-sm">Logout</a>
+                </div>
+                <ul class="nav nav-sidebar">
+                    <li ng-class="{active: $state.includes('employeeList')}"><a ui-sref=employeeList>Employee List <span class=sr-only>(current)</span></a></li>
+                </ul>
+            </div>
+            <div class="col-sm-12 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view>
+                <div>
+                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+                    <!--<button type="button" class='btn btn-default' ng-click="addAlert()">Add Alert</button>-->
+
+                    <h2>Employee List <a ng-click="addEmployee()" class="btn btn-info btn-outline btn-rounded btn-sm">Add Employee</a></h2>
+                    <div class="jumbotron">
+                        <div class="container">
+                            <div class="row">
+                                <!--Data Tables -->
+                                <div class="row">
+                                    <div class="col-sm-2 pull-left">
+                                        <label>PageSize:</label>
+                                        <select ng-model="data_limit" class="form-control">
+                                            <option>10</option>
+                                            <option>20</option>
+                                            <option>50</option>
+                                            <option>100</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 pull-right">
+                                        <label>Search:</label>
+                                        <input type="text" ng-model="search" placeholder="Search" class="form-control" />
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12" ng-show="filter_data > 0">
+                                        <table class="table table-striped table-bordered" datatable="ng" dt-options="vm.dtOptions" dt-instance="vm.dtInstance" width="100%" dt-column-defs="vm.dtColumnDefs">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Full Name<a ng-click="sortBy('firstName');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                                                    <!--<th>Username<a ng-click="sortBy('username');"><i class="glyphicon glyphicon-sort"></i></a></th>-->
+                                                    <th>Email<a ng-click="sortBy('s');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                                                    <th>Birth Date<a ng-click="sortBy('birthDate');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                                                    <th>Status<a ng-click="sortBy('status');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                                                    <th>Group<a ng-click="sortBy('group');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                                                    <!--<th>Basic Salary<a ng-click="sortBy('basicSalary');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                                                    <th>Description<a ng-click="sortBy('description');"><i class="glyphicon glyphicon-sort"></i></a></th>-->
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="n in data |beginning_data:(current_grid-1)*data_limit| limitTo: data_limit |filter:search:search2 | orderBy:propertyName:reverse">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{n.firstName}} {{n.lastName}}</td>
+                                                    <!--<td>{{n.username}}</td>-->
+                                                    <td>{{n.email}}</td>
+                                                    <td>{{n.birthDate | date:'dd/MM/yyyy'}}</td>
+                                                    <td>{{n.status}}</td>
+                                                    <td>{{n.group}}</td>
+                                                    <!--<td align="right">{{n.basicSalary | number:0}}</td>
+                                                    <td>{{n.description}}</td>-->
+                                                    <td><a ng-click="detail(n.id)" class="btn btn-info btn-outline btn-rounded btn-sm">Detail</a>
+                                                        <a ng-click="edit(n.id)" class="btn btn-warning btn-outline btn-rounded btn-sm">Edit</a>
+                                                        <a ng-click="confirmDelete(n.id)" class="btn btn-danger btn-outline btn-rounded btn-sm" confirmation-needed="Are you sure to delete this data?">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-12" ng-show="filter_data == 0">
+                                        <div class="col-md-12">
+                                            <h4>No records found..</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6 pull-left">
+                                            <h5>Showing {{ searched.length }} of {{ entire_user}} entries</h5>
+                                        </div>
+                                        <div class="col-md-6" ng-show="filter_data > 0">
+                                            <ul uib-pagination boundary-links="true"  item-per-page="data_limit" total-items="filter_data" ng-model="current_grid" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                                        </div>
+                                    </div>
+                                    <!--Data Tables max-size="mod" -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

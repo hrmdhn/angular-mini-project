@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h3>Edit Data</h3>
+</div>
+ <form name="form" ng-submit="edit()" role="form">
+<div class="modal-body">
+
+        <div class="form-group">
+            <label for="status">Status</label>
+            <input type="text" name="status" id="status" class="form-control" ng-model="vm.status" required />
+            <span ng-show="form.status.$dirty && form.status.$error.required" class="help-block">Status is required</span>
+        </div>
+        <div class="form-group">
+            <label for="group">Group</label>
+            <input type="text" name="group" id="group" class="form-control" ng-model="vm.group" required />
+            <span ng-show="form.group.$dirty && form.group.$error.required" class="help-block">Group is required</span>
+        </div>
+        <div class="form-group" >
+            <label for="basicSalary">Basic Salary</label>
+            <input type="number" name="basicSalary" id="basicSalary" class="form-control" ng-model="vm.basicSalary" ng-pattern="integerval"  required />
+            <span ng-show="form.basicSalary.$dirty && form.basicSalary.$error.required" class="help-block">Basic Salary is required</span>
+        </div>
+    <button type="submit"  ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Save</button>
+</div>
+
+</form>
+<div class="modal-footer">
+     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+
+</div>	
